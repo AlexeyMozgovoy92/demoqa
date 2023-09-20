@@ -1,0 +1,32 @@
+plugins {
+    id 'java'
+}
+
+group = 'org.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+def selenideVersion = "6.18.0",
+    junitVersion = "5.9.1",
+    javafakerVersion = "1.0.2",
+    ownerVersion = "1.0.12",
+    assertjVersion ="3.19.0"
+
+dependencies {
+
+    testImplementation(
+            "org.junit.jupiter:junit-jupiter: $junitVersion",
+            "com.codeborne:selenide:$selenideVersion",
+            "com.github.javafaker:javafaker:$javafakerVersion",
+            "org.aeonbits.owner:owner:$ownerVersion",
+            "org.assertj:assertj-core:$assertjVersion")
+    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+    testRuntimeOnly(
+            "org.junit.jupiter:junit-jupiter-engine:$junitVersion")
+}
+
+test {
+    useJUnitPlatform()
+}
