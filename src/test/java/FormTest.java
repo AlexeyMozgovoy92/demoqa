@@ -1,17 +1,18 @@
+import com.codeborne.selenide.Selenide;
 import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
-import static com.codeborne.selenide.Selectors.byText;
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selectors.*;
+import static com.codeborne.selenide.Selenide.$;
 
 public class FormTest  extends TestBase {
 
     @Test
     void successfulFillFormTest() {
-        open("/automation-practice-form");
+        Selenide.open("/automation-practice-form");
         $(".practice-form-wrapper").shouldHave(text("Student Registration Form"));
-        executeJavaScript("$('#fixedban').remove()");
-        executeJavaScript("$('footer').remove()");
+        Selenide.executeJavaScript("$('#fixedban').remove()");1
+        Selenide.executeJavaScript("$('footer').remove()");
         $("#firstName").setValue("Alexey");
         $("#lastName").setValue("Mzg");
         $("#userEmail").setValue("mzg@gmail.com");
@@ -24,6 +25,7 @@ public class FormTest  extends TestBase {
         $("#subjectsContainer").click();
         $("#subjectsInput").setValue("Physics").pressEnter();
         $("#hobbiesWrapper").$(byText("Music")).click();
+        $("#hobbies-checkbox-2").parent().click();
 
         $("#hobbies-checkbox-1").parent().click();
         // $("#hobbiesWrapper").$(byText("Sports")).click();
@@ -39,8 +41,8 @@ public class FormTest  extends TestBase {
         $(".modal-body").shouldHave(text("Alexey"), text("Mzg"),
                 text("mzg@gmail.com"), text("Male"), text("1357924680"),
                 text(30 + " " + "June" + "," + 1992),
-                text("Physics"), text("Music"), text("Sports"),
-                text("batty.jpg"), text("Baker Street, 221B"),
+                text("Physics"), text("Music"), text("Sports"),text("Reading"),
+                text("aleksei.jpg"), text("Baker Street, 221B"),
                 text("Haryana" + " " + "Karnal"));
 
     }
