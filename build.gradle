@@ -20,7 +20,9 @@ dependencies {
             "org.junit.jupiter:junit-jupiter: $junitVersion",
             "com.codeborne:selenide:$selenideVersion",
             "org.aeonbits.owner:owner:$ownerVersion",
-            "org.assertj:assertj-core:$assertjVersion")
+            "org.assertj:assertj-core:$assertjVersion",
+            "com.github.javafaker:javafaker:$javafakerVersion",
+            "org.slf4j:slf4j-simple:2.0.0")
     testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
     testRuntimeOnly(
             "org.junit.jupiter:junit-jupiter-engine:$junitVersion")
