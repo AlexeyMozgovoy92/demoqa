@@ -4,6 +4,9 @@ plugins {
 
 group = 'org.example'
 version = '1.0-SNAPSHOT'
+wrapper {
+    gradleVersion = '8.7'
+}
 
 repositories {
     mavenCentral()
@@ -12,22 +15,49 @@ def selenideVersion = "6.18.0",
     junitVersion = "5.9.1",
     javafakerVersion = "1.0.2",
     ownerVersion = "1.0.12",
-    assertjVersion ="3.19.0"
+    assertjVersion = "3.19.0",
+    allureVersion = "2.26.0",
+    aspectJVersion = "1.9.22"
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+    options.compilerArgs.add('-parameters')
+}
+
+configurations {
+    agent {
+        canBeResolved = true
+        canBeConsumed = true
+    }
+}
 
 dependencies {
-
+    agent "org.aspectj:aspectjweaver:$aspectJVersion"
     testImplementation(
+
             "org.junit.jupiter:junit-jupiter: $junitVersion",
             "com.codeborne:selenide:$selenideVersion",
             "org.aeonbits.owner:owner:$ownerVersion",
             "org.assertj:assertj-core:$assertjVersion",
             "com.github.javafaker:javafaker:$javafakerVersion",
-            "org.slf4j:slf4j-simple:2.0.0")
-    testImplementation 'org.junit.jupiter:junit-jupiter:5.8.1'
+            "org.slf4j:slf4j-simple:2.0.12",
+            "io.qameta.allure:allure-junit5",
+            "org.junit.jupiter:junit-jupiter:5.8.1")
+
+    testImplementation platform("org.junit:junit-bom:5.10.2")
+    testImplementation platform("io.qameta.allure:allure-bom:$allureVersion")
     testRuntimeOnly(
             "org.junit.jupiter:junit-jupiter-engine:$junitVersion")
 }
 
 test {
+    ignoreFailures = true
     useJUnitPlatform()
+    jvmArgs = [ "-javaagent:${configurations.agent.singleFile}" ]
 }

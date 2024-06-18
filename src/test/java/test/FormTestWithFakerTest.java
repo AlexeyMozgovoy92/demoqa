@@ -7,7 +7,7 @@ import pages.RegistrationFormPage;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 
-public class FormTestWithFaker extends TestBase {
+public class FormTestWithFakerTest extends TestBase {
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
     @Test
     void successfulFillFormTest() {
